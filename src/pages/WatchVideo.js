@@ -149,7 +149,7 @@ const WatchVideo = () => {
       dispatch(cancelDislike());
     }
 
-    client(`${process.env.REACT_APP_BE}/videos/${videoId}/like`);
+    client(`${process.env.REACT_APP_BACKEND_URL}/videos/${videoId}/like`);
   };
 
   const handleDislike = () => {
@@ -163,21 +163,21 @@ const WatchVideo = () => {
       dispatch(cancelLike());
     }
 
-    client(`${process.env.REACT_APP_BE}/videos/${videoId}/dislike`);
+    client(`${process.env.REACT_APP_BACKEND_URL}/videos/${videoId}/dislike`);
   };
 
   const handleSubscribe = (channel) => {
     dispatch(subscribeFromVideo());
     dispatch(addChannel(channel));
     addChannelLocalSt(channel);
-    client(`${process.env.REACT_APP_BE}/users/${channel.id}/togglesubscribe`);
+    client(`${process.env.REACT_APP_BACKEND_URL}/users/${channel.id}/togglesubscribe`);
   };
 
   const handleUnsubscribe = (channelId) => {
     dispatch(unsubscribeFromVideo());
     dispatch(removeChannel(channelId));
     removeChannelLocalSt(channelId);
-    client(`${process.env.REACT_APP_BE}/users/${channelId}/togglesubscribe`);
+    client(`${process.env.REACT_APP_BACKEND_URL}/users/${channelId}/togglesubscribe`);
   };
 
   useEffect(() => {

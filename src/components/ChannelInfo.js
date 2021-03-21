@@ -89,7 +89,7 @@ const ChannelInfo = ({ search, channel }) => {
 
     dispatch(addChannel(channel));
     addChannelLocalSt(channel);
-    client(`${process.env.REACT_APP_BE}/users/${channel.id}/togglesubscribe`);
+    client(`${process.env.REACT_APP_BACKEND_URL}/users/${channel.id}/togglesubscribe`);
   };
 
   const handleUnsubscribe = (channelId) => {
@@ -101,7 +101,7 @@ const ChannelInfo = ({ search, channel }) => {
 
     dispatch(removeChannel(channelId));
     removeChannelLocalSt(channelId);
-    client(`${process.env.REACT_APP_BE}/users/${channel.id}/togglesubscribe`);
+    client(`${process.env.REACT_APP_BACKEND_URL}/users/${channel.id}/togglesubscribe`);
   };
 
   return (

@@ -100,7 +100,7 @@ export const upload = async (resourceType, file) => {
 };
 
 export const authenticate = async (type, data) => {
-  const backendUrl = process.env.REACT_APP_BE;
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   try {
     const { data: token } = await client(`${backendUrl}/auth/${type}`, {

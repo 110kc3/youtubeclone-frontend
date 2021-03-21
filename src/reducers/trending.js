@@ -4,7 +4,7 @@ import { client } from "../utils";
 export const getTrending = createAsyncThunk(
   "trending/getTrending",
   async () => {
-    const { data } = await client(`${process.env.REACT_APP_BE}/videos`);
+    const { data } = await client(`${process.env.REACT_APP_BACKEND_URL}/videos`);
     data.sort((a, b) => b.views - a.views);
     return data;
   }

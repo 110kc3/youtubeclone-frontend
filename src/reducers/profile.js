@@ -5,7 +5,7 @@ export const getProfile = createAsyncThunk(
   "profile/getProfile",
   async (userId, thunk) => {
     const { data } = await client(
-      `${process.env.REACT_APP_BE}/users/${userId}`
+      `${process.env.REACT_APP_BACKEND_URL}/users/${userId}`
     );
     return data;
   }

@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { client } from "../utils";
 
 export const getHistory = createAsyncThunk("history/getHistory", async () => {
-  const { data } = await client(`${process.env.REACT_APP_BE}/users/history`);
+  const { data } = await client(`${process.env.REACT_APP_BACKEND_URL}/users/history`);
   return data;
 });
 
