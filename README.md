@@ -1,22 +1,16 @@
-# Youtube Clone Frontend
+# Youtube Clone Backend
 
 Youtube clone using PERN stack (Postgres, Express, React, Node). 
 
-This is the frontend repository, built with React + Redux. If you are looking for the backend repository, [click here](https://github.com/manikandanraji/youtubeclone-backend)
+This is the backend repository, built with Express + Sequelize. If you are looking for the frontend repository, [click here](https://github.com/manikandanraji/youtubeclone-frontend)
 
 Check out the [deployed site](https://utubeclone.netlify.app/)
 
 ## Core packages
 
-1. Redux - State Management
-2. React Router - Routing
-3. Styling - Styled Components
-4. Toast Notifications - React Toastify
-5. Network calls - Axios
-6. Video player - Videojs
-
-## Video uploads
-I am using cloudinary for hosting videos and the thumbnails are generated automatically once we upload the video to cloudinary
+1. sequelize - ORM for sql dialects
+2. jsonwebtoken - authentication
+3. bcryptjs - password hashing
 
 ## Features
 
@@ -35,15 +29,49 @@ I am using cloudinary for hosting videos and the thumbnails are generated automa
 
 At the root of your project create an .env file with the following contents:
 
-```bash
-# BE stands for Backend Endpoint
-REACT_APP_BACKEND_URL=<YOUR_BACKEND_ENDPOINT> # eg: http://localhost:5000/api/v1
-REACT_APP_CLOUDINARY_ENDPOINT=https://api.cloudinary.com/v1_1/<YOUR_CLOUD_NAME>
+```javascript
+JWT_SECRET=<YOUR_SECRET>
+JWT_EXPIRE=30d // or any reasonable value that you prefer
+DATABASE_URL=<YOUR_DB_CONNECTION_URI>
 ```
 
-Then run <code>npm i</code> and <code>npm start</code> to see the youtube clone in action
+Then run <code>npm i</code> and <code>npm run dev</code> to start the development server
 
 For more detailed instructions, [click here](https://github.com/manikandanraji/youtubeclone-frontend/wiki)
+
+
+## Deploying to Heroku
+
+Create your [heroku account](https://signup.heroku.com/) and install the heroku cli tool globally and login
+
+```bash
+npm i -g heroku
+heroku login
+```
+
+Go to the root of this project, create an new heroku app and push it to the remote 'heroku'
+
+```bash
+heroku create
+git push heroku master
+```
+
+Once the build finished successfully, you need to go to your heroku dashboard for this app and add the .env manually. If it
+sounds confusing, refer this [guide](https://devcenter.heroku.com/articles/config-vars#using-the-heroku-dashboard)
+
+### Heroku postgres addon
+
+You can also use the heroku postgres addon and use that database for this clone
+
+```bash
+heroku addons:create heroku-postgresql:hobby-dev
+```
+
+Now you can use the DATABASE_URL connection string from heroku postgres and use that in your .env. To get your connection string use:
+
+```bash
+heroku config # if everything worked you will a connection string
+```
 
 ## Watch the Demo
 
@@ -64,7 +92,6 @@ For more detailed instructions, [click here](https://github.com/manikandanraji/y
 ![Watch](screenshots/video.png)
 
 ### Suggestions
-
 ![Suggestions](screenshots/suggestions.png)
 
 ### Channel
