@@ -17,25 +17,23 @@ const Player = ({ previewUrl, speedInit }) => {
   const fetchSpeed = async () => {
     const { data } = await client(`${process.env.REACT_APP_BE}/videos/speed`);
     const vjsPlayer = videojs(videoRef.current);
-    nSpeed=Math.round(data);
+    nSpeed = Math.round(data);
     console.log(nSpeed, src);
-    console.log(vjsPlayer.currentTime())
+    //console.log(vjsPlayer.currentTime())
     let a = vjsPlayer.currentTime()
-    src = "https://res.cloudinary.com/dtelr3fsv/video/upload/q_1/v1619367127/youtube/qgtotofykmh7q8h7rnqd.mp4"
-    
+    //src = "https://res.cloudinary.com/dtelr3fsv/video/upload/q_1/v1619367127/youtube/qgtotofykmh7q8h7rnqd.mp4"
+
     vjsPlayer.src(src);
     vjsPlayer.currentTime(a);
     vjsPlayer.play();
-
-
   }
 
 
-  useEffect(() => {    
+  useEffect(() => {
     const interval = setInterval(() => {
       fetchSpeed();
       console.log("Network speed: " + nSpeed)
-    }, 5000);
+    }, 1000);
     return () => {
       clearInterval(interval);
     }
@@ -44,13 +42,12 @@ const Player = ({ previewUrl, speedInit }) => {
   useEffect(() => {
     const vjsPlayer = videojs(videoRef.current);
     //SPEED TEST NA PCOZATKU PUSZCZANIA FILMU
-    console.log("Kasia jest OP")
+    //console.log("Kasia jest OP")
 
-    
+
     if (!previewUrl) {
       vjsPlayer.poster(poster);
       vjsPlayer.src(src);
-
     }
 
     if (previewUrl) {
@@ -61,7 +58,7 @@ const Player = ({ previewUrl, speedInit }) => {
       client(`${process.env.REACT_APP_BE}/videos/${videoId}/view`);
     });
 
-    return () => { 
+    return () => {
       if (vjsPlayer) {
         vjsPlayer.dispose();
       }
