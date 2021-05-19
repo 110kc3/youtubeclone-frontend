@@ -89,19 +89,21 @@ export const upload = async (resourceType, file, duration) => {
     },
   };
 
- const { data } = await axios.post(
-      `${process.env.REACT_APP_CLOUDINARY_ENDPOINT}/${resourceType}/upload`,
-        formData,
-        config
-      );
-    
-  toast.dismiss(toastId);
+  const { data } = await axios.post(
+    `${process.env.REACT_APP_CLOUDINARY_ENDPOINT}/${resourceType}/upload`,
+    formData,
+    config
+  );
 
+  toast.dismiss(toastId);
+  // console.log(data)
   const video = {
     url: data.secure_url,
-    duration
+    duration,
+    bitrate: data.bit_rate,
+    bytes: data.bytes
   }
-
+  console.log(video)
   return video;
 };
 

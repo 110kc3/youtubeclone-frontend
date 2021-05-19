@@ -13,25 +13,27 @@ const UploadVideo = () => {
   const [url, setUrl] = useState("");
 
   const [duration, setDuration] = useState(0);
+  const [bitrate, setBitrate] = useState(0);
+  const [bytes, setBytes] = useState(0);
   const [thumbnail, setThumbnail] = useState("");
 
   const loadVideo = file => new Promise((resolve, reject) => {
-      try {
-          let video = document.createElement('video')
-          video.preload = 'metadata'
+    try {
+      let video = document.createElement('video')
+      video.preload = 'metadata'
 
-          video.onloadedmetadata = function () {
-              resolve(this)
-          }
-
-          video.onerror = function () {
-              reject("Invalid video. Please select a video file.")
-          }
-
-          video.src = window.URL.createObjectURL(file)
-      } catch (e) {
-          reject(e)
+      video.onloadedmetadata = function () {
+        resolve(this)
       }
+
+      video.onerror = function () {
+        reject("Invalid video. Please select a video file.")
+      }
+
+      video.src = window.URL.createObjectURL(file)
+    } catch (e) {
+      reject(e)
+    }
   })
 
   const handleVideoUpload = async (e) => {
@@ -43,8 +45,8 @@ const UploadVideo = () => {
 
       console.log(file)
 
-      if (size > 30) {
-        return toast.error("Sorry, file size should be less than 30MB");
+      if (size > 99) {
+        return toast.error("Sorry, file size should be less than 99MB");
       }
 
       const url = URL.createObjectURL(file);
@@ -53,8 +55,12 @@ const UploadVideo = () => {
 
       const data = await upload("video", file, Math.round(video.duration));
       setUrl(data.url);
-      
+
       setDuration(data.duration);
+
+      setBitrate(data.bitrate); //dodane
+      setBytes(data.bytes); //dodane
+
       const ext = path.extname(data.url);
       setThumbnail(data.url.replace(ext, ".jpg"));
     }
@@ -79,6 +85,8 @@ const UploadVideo = () => {
           thumbnail={thumbnail}
           url={url}
           duration={duration}
+          bitrate={bitrate} //dodane
+          bytes={bytes} //dodane
         />
       )}
     </div>

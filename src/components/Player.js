@@ -14,25 +14,30 @@ const Player = ({ previewUrl, speedInit }) => {
     (state) => state.video.data
   );
 
-  const fetchSpeed = async () => {
-    const { data } = await client(`${process.env.REACT_APP_BE}/videos/speed`);
+  const changeQuality = async () => {
+
     const vjsPlayer = videojs(videoRef.current);
-    nSpeed = Math.round(data);
-    console.log(nSpeed, src);
-    //console.log(vjsPlayer.currentTime())
+
     let a = vjsPlayer.currentTime()
     //src = "https://res.cloudinary.com/dtelr3fsv/video/upload/q_1/v1619367127/youtube/qgtotofykmh7q8h7rnqd.mp4"
+
 
     vjsPlayer.src(src);
     vjsPlayer.currentTime(a);
     vjsPlayer.play();
   }
 
+  const fetchSpeed = async () => {
+    const { data } = await client(`${process.env.REACT_APP_BE}/videos/speed`);
+    nSpeed = Math.round(data);
+    console.log("(inside fetchSpeed) Network speed: " + nSpeed)
+
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
       fetchSpeed();
-      console.log("Network speed: " + nSpeed)
+
     }, 1000);
     return () => {
       clearInterval(interval);
@@ -41,9 +46,6 @@ const Player = ({ previewUrl, speedInit }) => {
 
   useEffect(() => {
     const vjsPlayer = videojs(videoRef.current);
-    //SPEED TEST NA PCOZATKU PUSZCZANIA FILMU
-    //console.log("Kasia jest OP")
-
 
     if (!previewUrl) {
       vjsPlayer.poster(poster);
