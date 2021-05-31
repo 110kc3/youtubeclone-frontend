@@ -25,16 +25,18 @@ const Player = ({ previewUrl, speedInit }) => {
     );
     const bitrate = temp.data;
     let intSpeed = nSpeed * 1024 * 1024;
-    console.log(bitrate);
-    console.log(intSpeed);
+
     if (intSpeed < bitrate * 1.3) {
-      let q = String(Math.round((intSpeed / bitrate) * 10) * 10);
-      let position = q.indexOf("_");
-      src[position + 1] = q[0];
-      src[position + 2] = q[1];
-      vjsPlayer.src(src);
-      vjsPlayer.currentTime(a);
-      vjsPlayer.play();
+      const q = String(Math.round((intSpeed / bitrate) * 10) * 10);
+      const shit = new RegExp("q_\\d*");
+      const shit2 = src.match(shit)[0];
+      const shit3 = `q_${q}`;
+      if (shit3 != shit2) {
+        let ultTemp = src.replace(shit2, shit3);
+        vjsPlayer.src(ultTemp);
+        vjsPlayer.currentTime(a);
+        vjsPlayer.play();
+      }
     }
   };
 
