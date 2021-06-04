@@ -28,11 +28,11 @@ const Player = ({ previewUrl, speedInit }) => {
 
     if (intSpeed < bitrate * 1.3) {
       const q = String(Math.round((intSpeed / bitrate) * 10) * 10);
-      const shit = new RegExp("q_\\d*");
-      const shit2 = src.match(shit)[0];
-      const shit3 = `q_${q}`;
-      if (shit3 != shit2) {
-        let ultTemp = src.replace(shit2, shit3);
+      const pattern = new RegExp("q_\\d*");
+      const primaryQuality = src.match(pattern)[0];
+      const changeToQuality = `q_${q}`;
+      if (changeToQuality != primaryQuality) {
+        let ultTemp = src.replace(primaryQuality, changeToQuality);
         vjsPlayer.src(ultTemp);
         vjsPlayer.currentTime(a);
         vjsPlayer.play();
